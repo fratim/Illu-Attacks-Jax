@@ -1,0 +1,54 @@
+# This workflow will install Python dependencies, run tests and lint with a variety of Python versions
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
+
+name: lint & test
+
+on:
+  push:
+  pull_request:
+    types: [opened, reopened]
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.8", "3.9", "3.10", "3.11"]
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - run: pipx install poetry
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          cache: 'poetry'
+          python-version: ${{ matrix.python-version }}
+
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install --upgrade poetry
+          python -m pip install --upgrade black
+          python -m pip install --upgrade isort
+          poetry install --all-extras
+
+      - name: Lint with isort
+        run: |
+          isort --check-only --jobs -1 .
+
+      - name: Lint with black
+        run: |
+          black --check .
+
+      - run: echo "$(poetry env info --path)/bin" >> $GITHUB_PATH
+
+      - name: Run pyright
+        uses: jakebailey/pyright-action@v1.6.0
+
+      - name: Run test
+        run: |
+          pytest tests/ --import-mode importlib

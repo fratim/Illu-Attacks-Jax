@@ -1,0 +1,7 @@
+mamba create --name menv_rl3x
+mamba activate menv_rl3x
+mamba install cuda=12.3 cudnn==8.9.7.29 python==3.10
+pip install --upgrade "jax[cuda12_local]==0.4.25" -f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html
+pip install evosax distrax optax flax numpy
+pip install imageio wandb
+pip install -e jaxrenderer
