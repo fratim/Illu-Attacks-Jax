@@ -24,9 +24,6 @@ pip install -e jaxrenderer
 python train_adversary.py
 ```
 
-Code is optimised for running on a 48GB GPU. If run on a GPU with less memory, decrease the number of environments ("N_ENVS") in train_adversary.py.
-
-
 ## Reference
 ```
 @article{franzmeyer2024illusory,
