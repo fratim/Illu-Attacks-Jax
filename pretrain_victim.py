@@ -16,7 +16,7 @@ import orbax.checkpoint
 
 import pickle
 
-from purejaxrl.wrappers import (
+from wrappers import (
     LogWrapper,
     BraxGymnaxWrapper,
     VecEnv,

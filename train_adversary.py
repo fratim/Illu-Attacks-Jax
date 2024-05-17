@@ -16,7 +16,6 @@ from flax.training.train_state import TrainState
 import distrax
 import orbax.checkpoint
 import gymnax
-from purejaxrl.wrappers import LogWrapper
 import imageio
 from brax.io import image
 from datetime import datetime
@@ -28,7 +27,7 @@ import pickle
 import time
 import os
 
-from purejaxrl.wrappers import (
+from wrappers import (
     LogWrapper,
     BraxGymnaxWrapper,
     VecEnv,
